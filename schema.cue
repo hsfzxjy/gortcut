@@ -2,7 +2,7 @@ package gortcut
 
 import "regexp"
 
-_#StateName: =~"^[a-z]+$"
+_#StateName: =~"^[a-z][a-z0-9]+$"
 
 _#JobAction: close({
 	show?: string

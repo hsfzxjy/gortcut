@@ -66,11 +66,13 @@ func (js *Jobs) Setup(newList []*Job) (menus []*systray.MenuItem) {
 		js.menus[newLen].Enable()
 		go func(wg *sync.WaitGroup, menu *systray.MenuItem) {
 			defer wg.Done()
-			select {
-			case <-ctx.Done():
-				return
-			case <-menu.ClickedCh:
-				go Load()
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case <-menu.ClickedCh:
+					go Load()
+				}
 			}
 		}(&js.wg, js.menus[newLen])
 	}
